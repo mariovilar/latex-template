@@ -33,12 +33,16 @@
 \newpage
 
 \pagestyle{nor}
+% TeXShop doesn't apply transparency to the background of parts, so its use is discouraged.
+\part{First part}
 \chapter{Chapter test}
 \section{Section test}
 \begin{definition}[Test definition]
 Test
 \end{definition}
 
+% if you have to use parts, don't forget to add this!
+\stopcontents[parts]
 
 \medskip
 \printbibliography[heading=bibintoc]
