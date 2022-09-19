@@ -1,0 +1,48 @@
+\documentclass[a4paper,12pt,twoside]{book}
+\usepackage{styles}
+\addbibresource{files/BIBL-main.bib}
+\makeindex[columns=3, title=Índex terminològic, intoc, options= -s indexterminologicstyle.ist]
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt  
+
+\pagestyle{intr}
+\pgfplotsset{compat=1.15}
+\title{Title}
+\tipus{Class Notes}
+\semestre{Fifth}
+\professor{Dr. M}{V}
+
+% Document
+\begin{document}
+\setlength{\baselineskip}{.55cm}
+
+
+% TITLE PAGE --------------
+\include{tapa}
+% ---------------------------
+\newpage
+\pagestyle{intr}
+\input{introd}
+\newpage
+
+\pagestyle{toc}
+\tableofcontents
+\newpage
+
+\pagestyle{toenv}
+\listoftheorems
+\newpage
+
+\pagestyle{nor}
+\chapter{Chapter test}
+\section{Section test}
+\begin{definition}[Test definition]
+Test
+\end{definition}
+
+
+\medskip
+\printbibliography[heading=bibintoc]
+% \pagestyle{toc}
+% \printindex
+
+\end{document}

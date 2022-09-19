@@ -1,0 +1,517 @@
+\ProvidesPackage{styles}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[catalan]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[svgnames,table]{xcolor}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{dsfont}
+\usepackage{setspace}
+\usepackage{dsfont}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{centernot}
+\usepackage{titling}
+\usepackage[explicit]{titlesec}
+\usepackage{booktabs}
+\usepackage{emptypage}
+\usepackage[
+    type={CC},
+    modifier={by-nc-nd},
+    version={4.0},
+]{doclicense}
+
+% Bibliografia
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\newcommand{\familynameformat}[1]{\MakeUppercase{#1}}
+\AtBeginBibliography{%
+  \renewcommand{\mkbibnamefamily}{\familynameformat}%
+}
+\let\familynameformat=\textsc
+\nocite{*}
+\usepgfplotslibrary{polar}
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc,positioning,intersections,patterns}
+\usetikzlibrary{fadings}
+\usetikzlibrary{shadows.blur}
+\usetikzlibrary{shapes}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{cd}
+\usetikzlibrary{babel}
+\usepackage{epigraph}
+
+% Parameters
+\geometry{a4paper, total={170mm,257mm}, left=19.1mm, right=19.1mm, top=25.4mm, bottom=25.4mm}
+
+% Header
+\usepackage{extramarks}
+\usepackage{etoolbox}
+\usepackage{fancyhdr}
+\definecolor{arsenic}{rgb}{0.40, 0.40, 0.40}
+\definecolor{lightsilver}{RGB}{247,247,247}
+\definecolor{silver}{RGB}{237,237,237}
+\definecolor{darksilver}{RGB}{225,225,225}
+\definecolor{ultralight}{RGB}{253, 253, 253}
+
+% Save standard definitions
+\let\HeadRule\headrule
+% Add color to standard definitions.
+\renewcommand\headrule{\color{lightgray}\HeadRule}
+\renewcommand{\headrulewidth}{0.1pt}
+
+% MARKS
+\newcommand{\thmcolor}{black} % RO font color
+\fancypagestyle{nor}{% <===========================================
+    \fancyhead[RE]{\textcolor{black}{\nouppercase{\leftmark}}}
+    \fancyhead[LO]{\textcolor{black}{\nouppercase{\lastrightxmark}}}
+    \fancyhead[CE,CO]{}
+    \fancyhead[RO]{\setlength{\fboxsep}{1pt}{\color{arsenic}\textbf{\botmarks\theoremmarks}}}
+    \fancyhead[LE]{\textcolor{black}{\textit{\lastleftxmark}}}
+    \fancyfoot[RO, LE]{\fontsize{10pt}{10pt}\selectfont\thepage}
+    \fancyfoot[CO, CE]{}
+    \fancyheadoffset[LE,RO]{+0.025\textwidth}
+    \fancyheadoffset[RE,LO]{+0.0\textwidth}
+}
+\fancypagestyle{toc}{% <===========================================
+    \fancyhead[RE,LO,RO,LE]{}
+    \fancyhead[CE,CO]{\textsc{Índex}}
+    \fancyfoot[RO, LE]{\fontsize{10pt}{10pt}\selectfont\thepage}
+    \fancyfoot[CO, CE]{}
+    \fancyheadoffset[LE,RO]{+0.025\textwidth}
+    \fancyheadoffset[RE,LO]{+0.0\textwidth}
+}
+\fancypagestyle{toenv}{% <===========================================
+    \fancyhead[RE,LO,RO,LE]{}
+    \fancyhead[CE,CO]{\textsc{Taula de continguts}}
+    \fancyfoot[RO, LE]{\fontsize{10pt}{10pt}\selectfont\thepage}
+    \fancyfoot[CO, CE]{}
+    \fancyheadoffset[LE,RO]{+0.025\textwidth}
+    \fancyheadoffset[RE,LO]{+0.0\textwidth}
+}
+\fancypagestyle{intr}{% <===========================================
+    \fancyhead[RE,LO,RO,LE]{}
+    \fancyhead[CE,CO]{\textsc{Introducció}}
+    \fancyfoot[RO, LE]{\fontsize{10pt}{10pt}\selectfont\thepage}
+    \fancyfoot[CO, CE]{}
+    \fancyheadoffset[LE,RO]{+0.025\textwidth}
+    \fancyheadoffset[RE,LO]{+0.0\textwidth}
+}
+\fancypagestyle{plain}{% <===========================================
+    \fancyhead[RE,LO,RO,LE]{}
+    \fancyhead[CE,CO]{}
+    \fancyfoot[RO, LE]{\fontsize{10pt}{10pt}\selectfont\thepage}
+    \fancyfoot[CO, CE]{}
+    \renewcommand{\headrulewidth}{0pt}
+    
+}
+\pagestyle{nor}
+\makeatletter
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}\extramarks{}{}}
+\renewcommand{\sectionmark}[1]{\extramarks{\thesection}{#1}}
+\renewcommand{\subsectionmark}[1]{\extramarks{\thesubsection}{#1}}
+\makeatother
+\makeatletter
+\newmarks\theoremmarks
+\apptocmd\@begintheorem
+   {\message{\@currenvir: #2}\marks\theoremmarks{#2}}
+   {\message{patch \string\@begintheorem}}{\FAIL\@begintheorem}
+\makeatother
+
+
+% Definicions, teoremes, lemes...
+
+\makeatletter
+\newtheoremstyle{theorem}{}{}{\itshape}{}{\bfseries}{}{.5em}%
+{%
+% \xdef\thmcolor{yellow}%
+\setlength{\fboxsep}{0pt}\colorbox{darksilver}{\color{arsenic}\thmname{#1}%
+\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
+\thmnote{ {(\textsc{\the\thm@notefont#3})}}.}%
+}
+\makeatother
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{prop}[theorem]{Proposició}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{corollary}[theorem]{Corol·lari}
+\newtheorem{property}[theorem]{Propietat}
+\newtheorem{conjecture}[theorem]{Conjectura}
+\newtheorem{process}[theorem]{Procés}
+\newtheorem{exercise}[theorem]{Exercici}
+\newtheorem{algorisme}[theorem]{Algorisme} 
+
+\makeatletter
+\newtheoremstyle{definition}{}{}{}{}{\bfseries}{}{.5em}%
+{%
+\setlength{\fboxsep}{0pt}\colorbox{silver}{\color{arsenic}\thmname{#1}%
+\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
+\thmnote{ {(\textsc{\the\thm@notefont#3})}}.}%
+}
+\makeatother
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definició}
+\newtheorem{exmp}[theorem]{Exemple}
+\newtheorem{notation}[theorem]{Notació}
+
+\makeatletter
+\newtheoremstyle{remark}{}{}{}{}{\bfseries}{}{.5em}%
+{%
+\setlength{\fboxsep}{0pt}\colorbox{lightsilver}{\color{arsenic}\thmname{#1}%
+\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
+\thmnote{ {(\textsc{\the\thm@notefont#3})}}.}%
+}
+\makeatother
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Observació}
+
+% Table of Definitions
+\makeatletter
+\patchcmd\thmtlo@chaptervspacehack
+  {\addtocontents{loe}{\protect\addvspace{10\p@}}}
+  {\addtocontents{loe}{\protect\thmlopatch@endchapter\protect\thmlopatch@chapter{\thechapter}}}
+  {}{}
+\AtEndDocument{\addtocontents{loe}{\protect\thmlopatch@endchapter}}
+\long\def\thmlopatch@chapter#1#2\thmlopatch@endchapter{%
+  \setbox\z@=\vbox{#2}%
+  \ifdim\ht\z@>\z@
+    \centering\leavevmode\hbox{\textit{\chaptername\ #1}}\nobreak\noindent#2
+    \addvspace{15\p@}
+  \fi
+}
+\def\thmlopatch@endchapter{}
+\makeatother
+\makeatletter
+\def\ll@theorem{%
+   \protect\thmtopatch@numbernamethm
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@prop{%
+   \protect\thmtopatch@numbernamethm
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@lemma{%
+   \protect\thmtopatch@numbernamethm
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@corollary{%
+   \protect\thmtopatch@numbernamethm
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@property{%
+   \protect\thmtopatch@numbernamethm
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@conjecture{%
+   \protect\thmtopatch@numbernamethm
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@process{%
+   \protect\thmtopatch@numbernamethm
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@algorisme{%
+   \protect\thmtopatch@numbernamethm
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@exercise{%
+   \protect\thmtopatch@numbernamethm
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@definition{%
+   \protect\thmtopatch@numbernamedef
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@exmp{%
+   \protect\thmtopatch@numbernamedef
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@notation{%
+   \protect\thmtopatch@numbernamedef
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\def\ll@remark{%
+   \protect\thmtopatch@numbernamerem
+     \ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+     {\csname the\thmt@envname\endcsname}%
+     {\thmt@thmname}%
+}
+\makeatother
+\makeatletter
+\newcommand\thmtopatch@numbernamethm[3][]{%
+\setlength{\fboxsep}{0pt}\colorbox{darksilver}{\color{arsenic} \textbf{#3 #2}} %
+  \if\relax\detokenize{#1}\relax\else\space --- #1\fi}
+\newcommand\thmtopatch@numbernamedef[3][]{%
+\setlength{\fboxsep}{0pt}\colorbox{silver}{\color{arsenic} \textbf{#3 #2}} %
+  \if\relax\detokenize{#1}\relax\else\space --- #1\fi}
+\newcommand\thmtopatch@numbernamerem[3][]{%
+\setlength{\fboxsep}{0pt}\colorbox{lightsilver}{\color{arsenic} \textbf{#3 #2}} %
+  \if\relax\detokenize{#1}\relax\else\space \textcolor{gray}{---}#1\fi}
+\makeatother
+\renewcommand{\thmtformatoptarg}[1]{ --- #1}
+\renewcommand{\listtheoremname}{Taula de continguts}
+
+
+% Renew commands, canvis de format
+\renewcommand\qedsymbol{\color{gray}$\blacksquare$}
+\usepackage[normalem]{ulem}
+\makeatletter
+\newcommand{\grayuline}[1]{{\color{lightgray}\uline{{\color{gray}\textit{#1}}}}}
+\makeatother
+\renewcommand{\ULdepth}{2.125pt}
+
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep\itshape
+    \grayuline{#1}\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\newenvironment{resol}
+{\begin{proof}[\textcolor{gray}{Resolució}]}{\end{proof}}
+
+% New commands
+\newcommand{\successionA}{$\{a_n\}_{n \in \mathbb{N}}$}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\B}{\mathfrak{B}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Gram}{\mathcal{G}_\mathfrak{B}(\varphi)}
+\newcommand{\mcd}{\mathrm{mcd}}
+\newcommand{\mcm}{\mathrm{mcm}}
+\newcommand{\talque}{\; \big| \;}
+\newcommand{\notimplies}{%
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\mult}{mult}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\tr}{tr}
+\newcommand{\aij}{(a^{i}_{j})_{\begin{subarray}\\  1\leqslant i \leqslant m \\1 \leqslant j \leqslant n \end{subarray}}}
+\newcommand{\aijn}{(a^{i}_{j})_{\begin{subarray}\\  1\leqslant i \leqslant n \\1 \leqslant j \leqslant n \end{subarray}}}
+\newcommand{\bij}{(a^{i}_{j})_{\begin{subarray}\\  1\leqslant i \leqslant m \\1 \leqslant j \leqslant n \end{subarray}}}
+\newcommand{\cij}{(c^{i}_{j})_{\begin{subarray}\\  1\leqslant i \leqslant n \\1 \leqslant j \leqslant n \end{subarray}}}
+
+% TITLE FORMAT
+\usepackage[explicit]{titlesec}
+\usepackage{array}
+\titleformat{\chapter}[display]{\itshape\Large\centering\color{black}}{\centering\Huge\bfseries\sc\romannumeral\thechapter}{1ex}{\titleline{\color{lightgray}\titlerule[0.1pt]\vspace{1ex}}#1}
+\titleformat{name=\chapter,numberless}[display]{\itshape\Large\centering\color{black}}{}{1ex}{#1}[\titleline{\color{lightgray}\titlerule[0.1pt]\vspace{1ex}}]
+\titlespacing*{\chapter}{0pt}{-50pt}{40pt}
+\titleformat{\section}[frame]
+{\color{lightgray}\large\normalfont\mdseries\scshape\centering}{\filcenter\small \quad\textcolor{black}{\textit{\thesection}}\quad}
+{1ex}{\color{black}\Large\bfseries\filcenter#1}[]
+\titleformat{\subsection}[hang]{\normalfont\mdseries\scshape\centering}{\color{lightgray}\textit{\thesubsection}}{2ex}{\colorbox{ultralight}{\begin{tabular}[t]{@{\color{lightgray}\vrule width 0.1pt\hspace{2ex}}p{0.85\textwidth}}\raggedright#1\end{tabular}}}
+\titleformat{\subsubsection}[hang]{\normalfont\bfseries}{\mdseries\textit{\thesubsubsection}}{1em}{#1}[]
+\setcounter{secnumdepth}{3}
+\arrayrulecolor{lightgray}
+\numberwithin{equation}{section}
+
+
+% PART
+\usepackage{titletoc}
+\usepackage{eso-pic}
+\usepackage{transparent}
+
+\newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\transparent{0.1}
+\includegraphics[width=\paperwidth,height=\paperheight,%
+keepaspectratio]{graf.pdf}%
+\vfill
+}}}
+
+\makeatletter
+%\renewcommand\thepart{\arabic{part}}
+\def\@part[#1]#2{%
+    \AddToShipoutPicture*{\BackgroundPic}%
+    \ifnum \c@secnumdepth >-2\relax%
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    \markboth{}{}%
+  \reset@font
+  \parindent \z@ 
+  \vspace*{10\p@}%
+  \hbox{%
+    \vbox{%
+      \hsize=7mm%
+      \begin{tabular}{@{}p{7mm}@{}}
+        \makebox[7mm]{\scshape\strut\small\partname}\\
+        \makebox[7mm]{\cellcolor{lightgray}\Huge\color{white}\bfseries\strut\thepart\rule[-4cm]{0pt}{4cm}}%
+      \end{tabular}%
+      \makebox(0,0){\put(-10,-100){\fbox{\phantom{\rule[-4cm]{7mm}{4cm}}}}}
+      }%
+    \kern-2pt
+    \vbox to 0pt{%
+       \tabular[t]{@{}p{1cm}p{\dimexpr\hsize-2.1cm}@{}}\hline
+          & \Huge\itshape\rule{0pt}{1.5\ht\strutbox}#1\endtabular}%
+    }%
+    \vspace{50pt}%
+    \startcontents[parts]%
+    \printcontents[parts]{}{-1}{\setcounter{tocdepth}{2}}%
+  \cleardoublepage
+}
+\makeatother
+
+ % LIST FORMAT
+\setlist{label=\textcolor{gray}{\textbullet},topsep=2pt,noitemsep}
+\setenumerate{label=\textcolor{gray}{\arabic*.},topsep=2pt,noitemsep}
+
+% Epigraph
+\usepackage{epigraph,varwidth}
+
+\renewcommand{\epigraphsize}{\small}
+\setlength{\epigraphwidth}{0.6\textwidth}
+\renewcommand{\textflush}{flushright}
+\renewcommand{\sourceflush}{flushright}
+
+% A useful addition
+\newcommand{\epitextfont}{\itshape}
+\newcommand{\episourcefont}{\scshape}
+
+\makeatletter
+\newsavebox{\epi@textbox}
+\newsavebox{\epi@sourcebox}
+\newlength\epi@finalwidth
+\renewcommand{\epigraph}[2]{%
+  \vspace{\beforeepigraphskip}
+  {\epigraphsize\begin{\epigraphflush}
+   \epi@finalwidth=\z@
+   \sbox\epi@textbox{%
+     \varwidth{\epigraphwidth}
+     \begin{\textflush}\epitextfont{\fontfamily{ppl}\selectfont#1}\end{\textflush}
+     \endvarwidth
+   }%
+   \epi@finalwidth=\wd\epi@textbox
+   \sbox\epi@sourcebox{%
+     \varwidth{\epigraphwidth}
+     \begin{\sourceflush}\episourcefont{\fontfamily{ppl}\selectfont#2}\end{\sourceflush}%
+     \endvarwidth
+   }%
+   \ifdim\wd\epi@sourcebox>\epi@finalwidth 
+     \epi@finalwidth=\wd\epi@sourcebox
+   \fi
+   \leavevmode\vbox{
+     \hb@xt@\epi@finalwidth{\hfil\box\epi@textbox}
+     \vskip1.25ex
+     \hrule height \epigraphrule
+     \vskip1.25ex
+     \hb@xt@\epi@finalwidth{\hfil\box\epi@sourcebox}
+   }%
+   \end{\epigraphflush}
+   \vspace{\afterepigraphskip}}}
+\makeatother
+
+% MATRIX
+\makeatletter
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\newcommand{\phas}[1]{\overset{\mathbin
+{{\circ \mkern-2.5mu\rightarrow}}}{#1}}
+\makeatother
+
+% INTEGRALS
+\makeatletter
+\newcommand\tint{\mathop{\mathpalette\tb@int{t}}\!\int}
+\newcommand\bint{\mathop{\mathpalette\tb@int{b}}\!\int}
+\newcommand\tb@int[2]{%
+  \sbox\z@{$\m@th#1\int$}%
+  \if#2t%
+    \rlap{\hbox to\wd\z@{%
+      \hfil
+      \vrule width .35em height \dimexpr\ht\z@+1.4pt\relax depth -\dimexpr\ht\z@+1pt\relax
+      \kern.05em % a small correction on the top
+    }}
+  \else
+    \rlap{\hbox to\wd\z@{%
+      \vrule width .35em height -\dimexpr\dp\z@+1pt\relax depth \dimexpr\dp\z@+1.4pt\relax
+      \hfil
+    }}
+  \fi
+}
+\makeatother
+
+% TAPA
+\makeatletter
+\renewcommand{\title}[1]{\def\@title{#1}}
+\newcommand{\tipus}[1]{\def\@tipus{#1}}
+\newcommand{\semestre}[1]{\def\@semestre{#1}}
+\newcommand{\professor}[2]{\def\@nom{#1}\def\@cognom{#2}}
+\makeatother
+
+% PAQUETS FINALS
+\usepackage{imakeidx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=false,
+    linkbordercolor={lightgray},
+    urlbordercolor={darkgray},
+    citebordercolor={arsenic},
+}
