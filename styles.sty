@@ -22,7 +22,11 @@
 \usepackage{titling}
 \usepackage[explicit]{titlesec}
 \usepackage{booktabs}
+
+% we will edit its style later
 \usepackage{emptypage}
+
+%% for the document license
 \usepackage[
     type={CC},
     modifier={by-nc-nd},
@@ -52,7 +56,7 @@ sorting=ynt
 \usetikzlibrary{babel}
 \usepackage{epigraph}
 
-% Parameters
+% Parameters of geometry
 \geometry{a4paper, total={170mm,257mm}, left=19.1mm, right=19.1mm, top=25.4mm, bottom=25.4mm}
 
 % Header
@@ -381,6 +385,8 @@ keepaspectratio]{graf.pdf}%
 \vfill
 }}}
 
+%%%%%%%% I haven't explained it in my article because I almost never use it
+%% PART uses a TIKz illustration converted to PDF as a background image.
 \makeatletter
 %\renewcommand\thepart{\arabic{part}}
 \def\@part[#1]#2{%
@@ -472,10 +478,6 @@ keepaspectratio]{graf.pdf}%
 }{%
   \end{array}\right)
 }
-
-\newcommand{\phas}[1]{\overset{\mathbin
-{{\circ \mkern-2.5mu\rightarrow}}}{#1}}
-\makeatother
 
 % INTEGRALS
 \makeatletter
