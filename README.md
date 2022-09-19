@@ -1,5 +1,5 @@
 # Hi
-Please refer to [my website](https://www.vilar.dev/how-to-improve-the-visual-appearance-of-your-la-te-x-files) to read the rest of the article
+__Note__: Please refer to [my website](https://www.vilar.dev/how-to-improve-the-visual-appearance-of-your-la-te-x-files) to read the rest of the article.
 
 ---
 
