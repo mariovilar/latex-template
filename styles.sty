@@ -22,11 +22,9 @@
 \usepackage{titling}
 \usepackage[explicit]{titlesec}
 \usepackage{booktabs}
-
-% we will edit its style later
 \usepackage{emptypage}
 
-%% for the document license
+% for the document license
 \usepackage[
     type={CC},
     modifier={by-nc-nd},
@@ -108,7 +106,7 @@ sorting=ynt
     \fancyhead[RE,LO,RO,LE]{}
     \fancyhead[CE,CO]{\textsc{Introducció}}
     \fancyfoot[RO, LE]{\fontsize{10pt}{10pt}\selectfont\thepage}
-    \fancyfoot[CO, CE]{}
+    \fancyfoot[CO, CE]{Theme by \textsc{Mario Vilar}}
     \fancyheadoffset[LE,RO]{+0.025\textwidth}
     \fancyheadoffset[RE,LO]{+0.0\textwidth}
 }
@@ -313,9 +311,6 @@ sorting=ynt
   \popQED\endtrivlist\@endpefalse
 }
 \makeatother
-
-\newenvironment{resol}
-{\begin{proof}[\textcolor{gray}{Resolució}]}{\end{proof}}
 
 % New commands
 \newcommand{\successionA}{$\{a_n\}_{n \in \mathbb{N}}$}
